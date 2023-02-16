@@ -8,14 +8,17 @@ const spinTip = data => {
   if (data.isEasyData && data.easyData.events.isTokens) {
     const tokenCount = data.easyData.tokenCount
         , username = data.easyData.username
+        , isUser = data.easyData.isUser
 
-    AppTransportChannel.writeData({
-      type: 'tip',
-      data: {
-        username,
-        tokens: tokenCount
-      }
-    })
+    if (isUser) {
+      AppTransportChannel.writeData({
+        type: 'tip',
+        data: {
+          username,
+          tokens: tokenCount
+        }
+      })
+    }
   }
 }
 
