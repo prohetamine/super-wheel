@@ -1,0 +1,15 @@
+{
+  "name": "super-wheel",
+  "version": "1.0.0",
+  "description": "",
+  "size": 1,
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js official super-wheel 6969 1 development"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-mermaid": "^2.4.11"
+  }
+}

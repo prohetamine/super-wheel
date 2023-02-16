@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Super Wheel</title>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js' integrity='sha512-YeeA/Qxn5hYdkukScTCNNOhTrv1C2RubAGButJ1rmgQwZf/HdRaCGl+JAVkqsqaNRaYNHdheiuKKuPf9mDcqKg==' crossorigin='anonymous' referrerpolicy='no-referrer'></script>
+  <script src='../node_modules/node-mermaid/store/client/app-transport-channel.js'></script>
+  <link rel='stylesheet' href='main.css'>
+  <link rel='preconnect' href='https://fonts.googleapis.com'>
+  <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
+  <link href='https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap' rel='stylesheet'>
+</head>
+<body>
+  <div class='background'>
+    <div class='wrapper'>
+      <div id='settings' class='btn'>
+        <img src='settings-icon.svg' class='btn_icon'>
+      </div>
+      <div id='prizes' class='btn'>
+        <img src='prizes-icon.svg' class='btn_icon'>
+      </div>
+    </div>
+  </div>
+  <script>
+    const AppTransportChannel = MermaidAppTransportChannel()
+
+    const settingsBtn = document.querySelector('#settings')
+        , prizesBtn = document.querySelector('#prizes')
+
+    AppTransportChannel.on('connect', () => {
+      AppTransportChannel.on('readData', async ({ type, data }) => {
+        if (type === 'reload') {
+          localStorage.clear()
+          window.location.reload()
+        }
+      })
+
+      settingsBtn.addEventListener('click', () => {
+        AppTransportChannel.openWindow({
+          file: 'settings/build/index.html',
+          width: 950,
+          minWidth: 950,
+          maxWidth: 950,
+          height: 700,
+          alwaysOnTop: true
+        })
+      })
+
+      prizesBtn.addEventListener('click', () => {
+        AppTransportChannel.openWindow({
+          file: 'prizes/build/index.html',
+          width: 950,
+          minWidth: 950,
+          maxWidth: 950,
+          height: 700,
+          alwaysOnTop: true
+        })
+      })
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/official/repeater/public/settings/build/static/css/main.068e1a31.css",
+    "main.js": "/official/repeater/public/settings/build/static/js/main.20316b34.js",
+    "static/media/tokens.svg": "/official/repeater/public/settings/build/static/media/tokens.5dcbb591d4bcd31f62891376a878afe8.svg",
+    "static/media/url.svg": "/official/repeater/public/settings/build/static/media/url.9c90a98795669f14478f9f5e7100021d.svg",
+    "static/media/time.svg": "/official/repeater/public/settings/build/static/media/time.60ccd09b493a525048ba791cf2395fb5.svg",
+    "index.html": "/official/repeater/public/settings/build/index.html",
+    "static/media/ok.svg": "/official/repeater/public/settings/build/static/media/ok.6257af348ba934cd0faccb8a771a519f.svg",
+    "static/media/delete.svg": "/official/repeater/public/settings/build/static/media/delete.25c858b52c7b3dbbf5bbd0938fb06602.svg",
+    "static/media/add.svg": "/official/repeater/public/settings/build/static/media/add.98a27fcf1b6d878ea8df91d2b4cc8c29.svg",
+    "static/media/top.svg": "/official/repeater/public/settings/build/static/media/top.699397c7c4c32555c9db217a42540867.svg",
+    "static/media/bottom.svg": "/official/repeater/public/settings/build/static/media/bottom.b84572f6b969a9381baf5f062ea18f6b.svg",
+    "main.068e1a31.css.map": "/official/repeater/public/settings/build/static/css/main.068e1a31.css.map",
+    "main.20316b34.js.map": "/official/repeater/public/settings/build/static/js/main.20316b34.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.068e1a31.css",
+    "static/js/main.20316b34.js"
+  ]
+}

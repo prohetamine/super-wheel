@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Super Wheel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <style>
+    body {
+      padding: 0px;
+      margin: 0px;
+      overflow: hidden;
+    }
+
+    #root {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .wrapper-canvas {
+      position: relative;
+      width: 1280px;
+      height: 720px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(2, 0, 9, 0.91);
+      opacity: 0;
+      transition: 1s;
+      overflow: hidden;
+    }
+
+    .wrapper-mini-canvas {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 130px;
+      height: 130px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 1;
+      transition: 1s;
+    }
+
+    img.mini-label {
+      width: 100px;
+      z-index: 10;
+      opacity: 0;
+      transition: 1s;
+      position: absolute;
+    }
+
+    img.mini-shadow {
+      z-index: 2;
+      position: absolute;
+      width: 130px;
+      height: 130px;
+      transition: 1s;
+      opacity: 0;
+    }
+
+    canvas.main {
+      position: absolute;
+      width: 637px;
+      height: 637px;
+      border-radius: 100%;
+      border: 2px solid #363636;
+      transform: rotate(900deg);
+      transition: 10s;
+    }
+
+    canvas.mini {
+      position: absolute;
+      width: 130px;
+      height: 130px;
+      border-radius: 100%;
+      border: 1px solid #363636;
+      animation: spin 10s linear infinite;
+      transition: 1s;
+      opacity: 0;
+      box-shadow: 0px 0px 4px #808080;
+    }
+
+    @keyframes spin {
+      100% {
+        -webkit-transform: rotate(360deg);
+        transform:rotate(360deg);
+      }
+    }
+
+    .circle-wrapper {
+      position: absolute;
+      width: 301px;
+      height: 301px;
+      background: radial-gradient(50% 50% at 50% 50%, #181715 0%, #0A0A08 100%), #121210;
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.38);
+      border-radius: 100%;
+      opacity: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .label {
+      position: absolute;
+    }
+
+    .spinner-text {
+      top: 29px;
+      position: absolute;
+      width: 100px;
+      height: 15px;
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 11px;
+      line-height: 17px;
+      text-align: center;
+      color: #C4C601;
+    }
+
+    .spinner-name {
+      top: 44px;
+      width: 100px;
+      height: 19px;
+      position: absolute;
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 17px;
+      text-align: center;
+      color: #C4C601;
+    }
+
+    .developer-text {
+      top: 241px;
+      width: 100px;
+      height: 15px;
+      position: absolute;
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 11px;
+      line-height: 17px;
+      text-align: center;
+      color: #C4C601;
+    }
+
+    .developer-name {
+      top: 256px;
+      position: absolute;
+      height: 18px;
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 900;
+      font-size: 11px;
+      line-height: 17px;
+      text-align: center;
+      color: #C4C601;
+    }
+
+    .shadow-canvas {
+      position: absolute;
+      border-radius: 100%;
+      width: 637px;
+      height: 637px;
+      background: rgba(255, 255, 255, 0.01);
+      border: 2px solid #363636;
+      box-shadow: inset 0px 0px 64px rgba(0, 0, 0, 0.77);
+    }
+
+    .finder-wrapper {
+      position: absolute;
+      width: 1px;
+      height: 637px;
+      transform: rotate(0deg);
+      transition: 10s;
+      display: flex;
+      justify-content: center;
+    }
+
+    .finder {
+      width: 1px;
+      height: 30px;
+    }
+
+    .item-left {
+      position: absolute;
+      height: 43px;
+      border-radius: 31px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0px 30px;
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 18px;
+      color: #EAEAEA;
+    }
+
+    .item-right {
+      position: absolute;
+      height: 43px;
+      border-radius: 31px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0px 30px;
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 18px;
+      color: #EAEAEA;
+    }
+
+    canvas.time {
+      position: absolute;
+      width: 288px;
+      height: 288px;
+      border-radius: 0%;
+      border: none;
+    }
+
+    .time-text {
+      top: -5px;
+      left: 136px;
+      transition: 0.5s;
+      border-radius: 100%;
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      opacity: 0;
+      background: #1CBC02;
+      z-index: 99999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .seconds {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 700;
+      font-size: 14px;
+      text-align: center;
+      color: #000000;
+      margin-right: 1px;
+    }
+
+    .mini-s {
+      margin-top: 3px;
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 300;
+      font-size: 12px;
+      text-align: center;
+      color: #000000;
+    }
+
+    .arrow {
+      top: 268.5px;
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border-radius: 100%;
+      opacity: 0;
+      transition: 0.5s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #C4C601;
+    }
+
+    ._arrow {
+      width: 64px;
+      height: 64px;
+    }
+
+    .remains {
+      position: absolute;
+      z-index: 999;
+      width: 75px;
+      height: 27px;
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 17px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      top: 57px;
+      text-align: center;
+      color: #000000;
+      opacity: 0;
+      transition: 1s;
+    }
+  </style>
+  <div id='root'>
+    <div class="wrapper-mini-canvas">
+      <img class='mini-shadow' src="mini-shadow.svg" alt="">
+      <img class='mini-label' src="wheel-label-mini.svg" alt="">
+      <canvas class='mini'></canvas>
+      <div class='remains'>800</div>
+    </div>
+    <div class="wrapper-canvas">
+      <div class='item-left' style='top: 59px; left: 400px;'>Lovense control 5 minutes<div></div></div>
+      <div class='item-left' style='top: 111px; left: 337px;'>Lovense control 2 minutes<div></div></div>
+      <div class='item-left' style='top: 161px; left: 296px;'>Lovense control 2 minutes<div></div></div>
+      <div class='item-left' style='top: 211px; left: 268px;'>Lovense control 2 minutes<div></div></div>
+      <div class='item-left' style='top: 263px; left: 251px;'>Lovense control 2 minutes<div></div></div>
+      <div class='item-left' style='top: 314px; left: 245px;'>Lovense control 2 minutes<div></div></div>
+      <div class='item-left' style='top: 365px; left: 245px;'>Lovense control 2 minutes<div></div></div>
+      <div class='item-left' style='top: 415px; left: 251px;'>Lovense control 2 minutes<div></div></div>
+      <div class='item-left' style='top: 468px; left: 268px;'>Lovense control 2 minutes<div></div></div>
+      <div class='item-left' style='top: 518px; left: 296px;'>Lovense control 2 minutes<div></div></div>
+      <div class='item-left' style='top: 569px; left: 337px;'>Lovense control 2 minutes<div></div></div>
+      <div class='item-left' style='top: 620px; left: 400px;'>Lovense control 2 minutes<div></div></div>
+      <div class='item-right' style='top: 59px; right: 400px;'><div></div>Lovense control 5 minutes</div>
+      <div class='item-right' style='top: 111px; right: 337px;'><div></div>Lovense control 2 minutes</div>
+      <div class='item-right' style='top: 161px; right: 296px;'><div></div>Lovense control 2 minutes</div>
+      <div class='item-right' style='top: 211px; right: 268px;'><div></div>Lovense control 2 minutes</div>
+      <div class='item-right' style='top: 263px; right: 251px;'><div></div>Lovense control 2 minutes</div>
+      <div class='item-right' style='top: 314px; right: 245px;'><div></div>Lovense control 2 minutes</div>
+      <div class='item-right' style='top: 365px; right: 245px;'><div></div>Lovense control 2 minutes</div>
+      <div class='item-right' style='top: 415px; right: 251px;'><div></div>Lovense control 2 minutes</div>
+      <div class='item-right' style='top: 468px; right: 268px;'><div></div>Lovense control 2 minutes</div>
+      <div class='item-right' style='top: 518px; right: 296px;'><div></div>Lovense control 2 minutes</div>
+      <div class='item-right' style='top: 569px; right: 337px;'><div></div>Lovense control 2 minutes</div>
+      <div class='item-right' style='top: 620px; right: 400px;'><div></div>Lovense control 2 minutes</div>
+      <canvas class='main'></canvas>
+      <div class='circle-wrapper'>
+        <div class='time-text'>
+          <div class="seconds">1</div>
+          <div class="mini-s">s</div>
+        </div>
+        <canvas class='time'></canvas>
+        <img class='label' src="while-label.svg" alt="">
+        <div class='spinner-text'>SPINNER</div>
+        <div class='spinner-name'>...</div>
+        <div class='developer-text'>developer</div>
+        <div class='developer-name'>VOLTICA</div>
+      </div>
+      <div class='finder-wrapper'>
+        <div class='arrow'>
+          <img class='_arrow' src='arrow.png' />
+        </div>
+        <div class='finder'></div>
+      </div>
+      <div class="shadow-canvas"></div>
+    </div>
+  </div>
+  <script>
+    const init = async () => {
+      setup(
+        [
+          '1 any items from the tip menu',
+          'Record 5 sexy videos',
+          'Record 1 sexy video',
+          'Flash Titties',
+          'Ass spank',
+          'Instagram/Telegram/Snapchat',
+          'Lovense controll 5 minutes',
+          'Lovense controll 10 minutes',
+          'Crazy sexy dance',
+          'None', //'Lap Milk',
+          'Slapping my ass for 5 minutes',
+          'Write name on the body 30 times',
+          'Record 3 sexy videos', //'Pour Milk over',
+          'All in oil',
+          'Pose to choose from 5 min',
+          'Finger two Pussy play 10 min',
+          'Draw on the body',
+          'Show heart',
+          'None', //'Finger Sucking In Milk',
+          'Put panties on head',
+          'Lovense controll 8 minutes',
+          'Wear something sexy',
+          'All naked',
+          'Lovense controll 3 minutes'
+        ]
+        //() => ['❤️','🧡','💛','💚','💙','💜'][parseInt(Math.random() * 6)]
+      )
+
+
+      let users = {
+          /*'alex': 53,
+          'prohetamine': 56,
+          'alihan': 233,
+          '44john': 220,
+          'pavel007': 200*/
+        }
+        , isSpinned = false
+        , count = 800
+
+      window.pushTokens = async ({ username, tokens }) => {
+        if (!isSpinned) {
+          const _users_ = Object.keys(users).map(username => ({ username, tokens: users[username] }))
+              , _goCountTokens = _users_.reduce((ctx, user) => ctx + user.tokens, 0)
+
+          if (count - _goCountTokens >= tokens) {
+            if (users[username]) {
+              users[username] += parseInt(tokens)
+            } else {
+              users[username] = parseInt(tokens)
+            }
+          }
+
+          const _users = Object.keys(users).map(username => ({ username, tokens: users[username] }))
+              , goCountTokens = _users.reduce((ctx, user) => ctx + user.tokens, 0)
+
+          if (goCountTokens >= count) {
+            isSpinned = true
+            const out = await spin({
+              users: _users,
+              spennerUser: username
+            })
+
+            setTimeout(() => {
+              users = {}
+              isSpinned = false
+
+              const _users_ = virtualSigments(_users, count)
+              AppTransportChannel.writeData({
+                type: 'win',
+                data: {
+                  users: _users_,
+                  out
+                }
+              })
+
+              spinMini({
+                users: _users_,
+                remains: 0
+              })
+            }, 1000)
+          } else {
+            const users = virtualSigments(_users, count)
+
+            spinMini({
+              users,
+              remains: goCountTokens
+            })
+          }
+        }
+      }
+
+      const AppTransportChannel = MermaidAppTransportChannel()
+
+      AppTransportChannel.on('connect', () => {
+        alert('Super Wheel connect to Mermaid Store')
+
+        AppTransportChannel.on('readData', async ({ type, data }) => {
+          if (type === 'reload') {
+            localStorage.clear()
+            window.location.reload()
+          }
+
+          if (type === 'tip') {
+            pushTokens(data)
+          }
+        })
+      })
+    }
+
+    window.addEventListener('load', init)
+  </script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js' integrity='sha512-YeeA/Qxn5hYdkukScTCNNOhTrv1C2RubAGButJ1rmgQwZf/HdRaCGl+JAVkqsqaNRaYNHdheiuKKuPf9mDcqKg==' crossorigin='anonymous' referrerpolicy='no-referrer'></script>
+  <script src='../../node_modules/node-mermaid/store/client/app-transport-channel.js'></script>
+  <script src='libs.js'></script>
+  <script src='setup.js'></script>
+  <script src='draw-sigments.js'></script>
+  <script src='spin.js'></script>
+  <script src='spin-mini.js'></script>
+</body>
+</html>
