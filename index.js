@@ -43,10 +43,40 @@ AppChannel.on('connect', () => {
 
     AppTransportChannel.on('readData', ({ type, data }) => {
       if (type === 'win') {
-        AppChannel.sendMessage('Chaturbate', `@${data.out.username} you winner! your prize: ${data.out.prize}`)
-        AppChannel.sendMessage('BongaCams', `@${data.out.username} you winner! your prize: ${data.out.prize}`)
-        AppChannel.sendMessage('xHamsterLive', `@${data.out.username} you winner! your prize: ${data.out.prize}`)
-        AppChannel.sendMessage('Stripchat', `@${data.out.username} you winner! your prize: ${data.out.prize}`)
+        const winMessages = {
+          Chaturbate: [
+            `[Bot] Super wheel fortune gamers:`,
+            ...data.users.map((user, i) => `[Bot] #${i+1} ${user.isKing ? `(king) ` : ''}@${user.username} | contribution: ${user.tokens} tokens | probability of victory ${parseInt(user.procent * 100)}%`),
+            `❤️🧡💛💚💙💜 🕹 💜💙💚💛🧡❤️`,
+            `[Bot] Wow this @${data.out.username} guy won! And gets: ${data.out.prize}`,
+            `[Bot] :fui387372hf87f23hf372h87j98j9j8j`
+          ],
+          BongaCams: [
+            `Super wheel fortune gamers:`,
+            ...data.users.map((user, i) => `#${i+1} ${user.isKing ? `(king) ` : ''}@${user.username} | contribution: ${user.tokens} tokens | probability of victory ${parseInt(user.procent * 100)}%`),
+            `★★★★★`,
+            `Wow this @${data.out.username} guy won! And gets: ${data.out.prize}`,
+            `★★★★★`
+          ],
+          xHamsterLive: [
+            `Super wheel fortune gamers:`,
+            ...data.users.map((user, i) => `#${i+1} ${user.isKing ? `(king) ` : ''}@${user.username} | contribution: ${user.tokens} tokens | probability of victory ${parseInt(user.procent * 100)}%`),
+            `★★★★★`,
+            `Wow this @${data.out.username} guy won! And gets: ${data.out.prize}`,
+            `★★★★★`
+          ],
+          Stripchat: [
+            `Super wheel fortune gamers:`,
+            ...data.users.map((user, i) => `#${i+1} ${user.isKing ? `(king) ` : ''}@${user.username} | contribution: ${user.tokens} tokens | probability of victory ${parseInt(user.procent * 100)}%`),
+            `★★★★★`,
+            `Wow this @${data.out.username} guy won! And gets: ${data.out.prize}`,
+            `★★★★★`
+          ]
+        }
+
+        Object.keys(winMessages).forEach(platform =>
+          AppChannel.sendMessages(platform, winMessages[platform])
+        )
       }
     })
   })
