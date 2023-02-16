@@ -467,6 +467,14 @@
             window.location.reload()
           }
 
+          if (type === 'state') {
+            if (data.isPlay) {
+              body.style.opacity = 1
+            } else {
+              body.style.opacity = 0
+            }
+          }
+
           if (type === 'tip') {
             pushTokens(data)
           }

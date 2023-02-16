@@ -34,6 +34,13 @@ AppChannel.on('connect', () => {
       parser.BongaCams(data, spinTip)
     })
 
+    AppChannel.on('state', (state) => {
+      AppTransportChannel.writeData({
+        type: 'state',
+        data: state
+      })
+    })
+
     AppTransportChannel.on('readData', ({ type, data }) => {
       if (type === 'win') {
         AppChannel.sendMessage('Chaturbate', `@${data.out.username} you winner! your prize: ${data.out.prize}`)

@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "node-mermaid": "^2.4.11"
+    "node-mermaid": "^2.5.0"
   }
 }
