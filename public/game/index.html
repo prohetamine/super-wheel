@@ -456,35 +456,36 @@
         }
       }
 
-      const AppTransportChannel = MermaidAppTransportChannel()
+      try {
+        const AppTransportChannel = MermaidAppTransportChannel()
 
-      AppTransportChannel.on('connect', () => {
-        alert('Super Wheel connect to Mermaid Store')
+        AppTransportChannel.on('connect', () => {
+          alert('Super Wheel connect to Mermaid Store')
 
-        AppTransportChannel.on('readData', async ({ type, data }) => {
-          if (type === 'reload') {
-            localStorage.clear()
-            window.location.reload()
-          }
-
-          if (type === 'state') {
-            if (data.isPlay) {
-              document.body.style.opacity = 1
-            } else {
-              document.body.style.opacity = 0
+          AppTransportChannel.on('readData', async ({ type, data }) => {
+            if (type === 'reload') {
+              localStorage.clear()
+              window.location.reload()
             }
-          }
 
-          if (type === 'tip') {
-            pushTokens(data)
-          }
+            if (type === 'state') {
+              if (data.isPlay) {
+                document.body.style.opacity = 1
+              } else {
+                document.body.style.opacity = 0
+              }
+            }
+
+            if (type === 'tip') {
+              pushTokens(data)
+            }
+          })
         })
-      })
+      } catch (e) {}
     }
 
     window.addEventListener('load', init)
   </script>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js' integrity='sha512-YeeA/Qxn5hYdkukScTCNNOhTrv1C2RubAGButJ1rmgQwZf/HdRaCGl+JAVkqsqaNRaYNHdheiuKKuPf9mDcqKg==' crossorigin='anonymous' referrerpolicy='no-referrer'></script>
   <script src='../../node_modules/node-mermaid/store/client/app-transport-channel.js'></script>
   <script src='libs.js'></script>
   <script src='setup.js'></script>
